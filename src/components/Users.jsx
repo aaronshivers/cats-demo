@@ -1,19 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import useFetch from '../hooks/useFetch';
+import React from 'react';
 
-const url = 'https://jsonplaceholder.typicode.com/users';
-
-const Users = () => {
-	const { data } = useFetch(url);
-
+const Users = ({ users }) => {
 	return (
 		<ul>
 			{
-        data.map(({ id, name }) => (
-            <li key={id}>{name}</li>
-          )
-        )
-      }
+				users.map(({ id, name }) => (
+						<li key={id}>{name}</li>
+					)
+				)
+			}
 		</ul>
 	);
 };
