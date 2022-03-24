@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import Users from "./components/Users"
 import Posts from "./components/Posts"
 
-
 const USERS = 0
 const POSTS = 1
 
