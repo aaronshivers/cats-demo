@@ -1,24 +1,21 @@
-import {useEffect, useState} from "react"
-import useLocalStorage from "./useLocalStorage"
+import { useEffect, useState } from 'react';
 
 const useFetch = (url) => {
   const [data, setData] = useState([])
-  const [value, setValue] = useState([])
-  
-  useEffect(() => {    
+
+  useEffect(() => {
     const fetchData = async () => {
       console.log('fetching data', url)
       const response = await fetch(url)
-      const data = await response.json()  
-   
+      const data = await response.json()
+
       setData(data)
-      setValue('users', data)
     }
 
     fetchData()
   }, [])
 
-  
+
   return {data}
 }
 
