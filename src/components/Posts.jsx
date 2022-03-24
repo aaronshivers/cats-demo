@@ -1,21 +1,24 @@
-import React, {useState, useEffect} from "react"
-import useFetch from "../hooks/useFetch"
-
-
-const url = 'https://jsonplaceholder.typicode.com/posts'
+import React, { useEffect } from 'react';
+import useStore from '../store';
 
 const Users = () => {
-  const {data} = useFetch(url)
+  const posts = useStore(state => state.posts);
+  const fetchPosts = useStore(state => state.fetchPosts);
 
+  useEffect(() => {
+    if (!posts.length) {
+      fetchPosts();
+    }
+  }, []);
   return (
     <ul>
       {
-        data.map(({id, title}) => (
+        posts.map(({ id, title }) => (
           <li key={id}>{title}</li>
         ))
       }
     </ul>
-  )
-}
+  );
+};
 
 export default Users
