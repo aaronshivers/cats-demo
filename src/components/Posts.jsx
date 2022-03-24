@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import useStore from '../store';
 
-const Users = () => {
+const Posts = () => {
   const posts = useStore(state => state.posts);
   const fetchPosts = useStore(state => state.fetchPosts);
 
@@ -21,4 +21,4 @@ const Users = () => {
   );
 };
 
-export default Users
+export default Posts
