@@ -3,7 +3,7 @@ import useFetch from '../hooks/useFetch';
 
 const url = 'https://jsonplaceholder.typicode.com/posts';
 
-const Users = () => {
+const Posts = () => {
   const { data } = useFetch(url);
 
   return (
@@ -17,4 +17,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default Posts;
