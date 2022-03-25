@@ -1,18 +1,18 @@
 import create from 'zustand';
 
 const useStore = create((set) => ({
-  users: [],
-  posts: [],
-  fetchUsers: async () => {
-    const response = await fetch('https://jsonplaceholder.typicode.com/users');
-    const users = await response.json();
-    set((state) => ({ ...state, users }));
+  facts: null,
+  breeds: null,
+  fetchFacts: async () => {
+    const response = await fetch('https://catfact.ninja/facts');
+    const facts = await response.json();
+    set((state) => ({ ...state, facts }));
   },
-  fetchPosts: async () => {
-    const response = await fetch('https://jsonplaceholder.typicode.com/posts');
-    const posts = await response.json();
-    set((state) => ({ ...state, posts }));
+  fetchBreeds: async () => {
+    const response = await fetch('https://catfact.ninja/breeds');
+    const breeds = await response.json();
+    set((state) => ({ ...state, breeds }));
   },
-}))
+}));
 
 export default useStore;

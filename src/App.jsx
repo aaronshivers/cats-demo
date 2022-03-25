@@ -1,25 +1,25 @@
-import React, {useState} from 'react';
-import Users from "./components/Users"
-import Posts from "./components/Posts"
+import React, { useState } from 'react';
+import Facts from './components/Facts';
+import Breeds from './components/Breeds';
 
-const USERS = 0
-const POSTS = 1
+const FACTS = 0;
+const BREEDS = 1;
 
-const App = () => {
-  const [view, setView] = useState(null)
+function App() {
+  const [view, setView] = useState(null);
 
-  const handleUsersButtonClick = () => setView(USERS)
-  const handlePostsButtonClick = () => setView(POSTS)
+  const handleFactsButtonClick = () => setView(FACTS);
+  const handleBreedsButtonClick = () => setView(BREEDS);
 
   return (
     <main>
-      <button onClick={handleUsersButtonClick}>Users</button>
-      <button onClick={handlePostsButtonClick}>Posts</button>
+      <button type="button" onClick={handleFactsButtonClick}>Facts</button>
+      <button type="button" onClick={handleBreedsButtonClick}>Breeds</button>
       {
-        view === USERS ? <Users/> : null
+        view === FACTS ? <Facts /> : null
       }
       {
-        view === POSTS ? <Posts/> : null
+        view === BREEDS ? <Breeds /> : null
       }
     </main>
   );
