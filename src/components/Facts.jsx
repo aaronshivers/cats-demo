@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { List } from 'grommet';
 import useStore from '../store';
 
 function Facts() {
@@ -12,13 +13,9 @@ function Facts() {
   }, [facts, fetchFacts]);
 
   return (
-    <ul>
-      {
-        facts?.data.map(({ fact }) => (
-          <li key={fact}>{fact}</li>
-        ))
-      }
-    </ul>
+    <List
+      data={facts?.data}
+    />
   );
 }
 

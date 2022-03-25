@@ -1,22 +1,15 @@
 import React, { useState } from 'react';
 import {
-  Box, Button, Collapsible, Grommet, Heading, Layer, ResponsiveContext,
+  Box, Button, Collapsible, Grommet, Heading, ResponsiveContext,
 } from 'grommet';
-import { Menu, FormClose, Notification } from 'grommet-icons';
-import Facts from './components/Facts';
-import Breeds from './components/Breeds';
+import { Menu } from 'grommet-icons';
 import theme from './theme';
 import AppBar from './components/AppBar';
-
-const FACTS = 0;
-const BREEDS = 1;
+import SideBar from './components/SideBar';
+import Main from './components/Main';
 
 function App() {
   const [showSidebar, setShowSidebar] = useState(false);
-  const [view, setView] = useState(null);
-
-  const handleFactsButtonClick = () => setView(FACTS);
-  const handleBreedsButtonClick = () => setView(BREEDS);
 
   return (
     <Grommet theme={theme} full>
@@ -45,39 +38,9 @@ function App() {
                   </Box>
                 </Collapsible>
               ) : (
-                <Layer>
-                  <Box
-                    background="light-2"
-                    tag="header"
-                    justify="end"
-                    align="center"
-                    direction="row"
-                  >
-                    <Button
-                      icon={<FormClose />}
-                      onClick={() => setShowSidebar(false)}
-                    />
-                  </Box>
-                  <Box
-                    fill
-                    background="light-2"
-                    align="center"
-                    justify="center"
-                  >
-                    sidebar
-                  </Box>
-                </Layer>
+                <SideBar setShowSidebar={setShowSidebar} />
               )}
-              <Box flex align="center" justify="center">
-                <button type="button" onClick={handleFactsButtonClick}>Facts</button>
-                <button type="button" onClick={handleBreedsButtonClick}>Breeds</button>
-                {
-                  view === FACTS ? <Facts /> : null
-                }
-                {
-                  view === BREEDS ? <Breeds /> : null
-                }
-              </Box>
+              <Main />
             </Box>
           </Box>
         )}
