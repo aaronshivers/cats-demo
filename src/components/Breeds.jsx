@@ -1,19 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import {
-  Table, TableBody, TableCell, TableHeader, TableRow,
+  Pagination, Table, TableBody, TableCell, TableHeader, TableRow,
 } from 'grommet';
-import useStore from '../store';
+import useSWR from 'swr';
 import Loading from './Loading';
+import fetcher from '../utils/fetcher';
+
+const url = 'https://catfact.ninja/breeds';
 
 function Breeds() {
-  const breeds = useStore((state) => state.breeds);
-  const fetchBreeds = useStore((state) => state.fetchBreeds);
+  const [pageIndex, setPageIndex] = useState(1);
 
-  useEffect(() => {
-    if (!breeds?.data) {
-      fetchBreeds();
-    }
-  }, []);
+  const { data: breeds } = useSWR(`${url}?page=${pageIndex}`, fetcher);
 
   const renderTable = () => {
     if (!breeds?.data) {
@@ -21,34 +19,47 @@ function Breeds() {
     }
 
     return (
-      <Table>
-        <TableHeader>
-          <TableRow>
+      <>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              {
+                breeds?.data ? (
+                  Object.keys(breeds?.data[0]).map((key) => (
+                    <TableCell scope="col" border="bottom" key={key}>
+                      {key.charAt(0)
+                        .toUpperCase() + key.slice(1)}
+                    </TableCell>
+                  ))
+                ) : null
+              }
+            </TableRow>
+          </TableHeader>
+          <TableBody>
             {
-              breeds?.data ? (
-                Object.keys(breeds?.data[0]).map((key) => (
-                  <TableCell scope="col" border="bottom" key={key}>{key.charAt(0).toUpperCase() + key.slice(1)}</TableCell>
-                ))
-              ) : null
+              breeds?.data.map(({
+                breed, country, origin, coat, pattern,
+              }) => (
+                <TableRow key={breed}>
+                  <TableCell scope="row"><strong>{breed}</strong></TableCell>
+                  <TableCell>{country}</TableCell>
+                  <TableCell>{origin}</TableCell>
+                  <TableCell>{coat}</TableCell>
+                  <TableCell>{pattern}</TableCell>
+                </TableRow>
+              ))
             }
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {
-            breeds?.data.map(({
-              breed, country, origin, coat, pattern,
-            }) => (
-              <TableRow key={breed}>
-                <TableCell scope="row"><strong>{breed}</strong></TableCell>
-                <TableCell>{country}</TableCell>
-                <TableCell>{origin}</TableCell>
-                <TableCell>{coat}</TableCell>
-                <TableCell>{pattern}</TableCell>
-              </TableRow>
-            ))
-          }
-        </TableBody>
-      </Table>
+          </TableBody>
+        </Table>
+        <Pagination
+          alignSelf="end"
+          margin="medium"
+          numberItems={breeds.total}
+          onChange={({ page }) => setPageIndex(page)}
+          page={pageIndex}
+          step={breeds.per_page}
+        />
+      </>
     );
   };
 

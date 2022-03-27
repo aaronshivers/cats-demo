@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { List, Pagination } from 'grommet';
-import useStore from '../store';
+import useSWR from 'swr';
 import Loading from './Loading';
+import fetcher from '../utils/fetcher';
+
+const url = 'https://catfact.ninja/facts';
 
 function Facts() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const facts = useStore((state) => state.facts);
-  const fetchFacts = useStore((state) => state.fetchFacts);
+  const [pageIndex, setPageIndex] = useState(1);
 
-  useEffect(() => {
-    fetchFacts(currentPage);
-  }, [currentPage]);
+  const { data: facts } = useSWR(`${url}?page=${pageIndex}`, fetcher);
 
   if (!facts?.data) {
     return <Loading />;
@@ -25,8 +24,8 @@ function Facts() {
         alignSelf="end"
         margin="medium"
         numberItems={facts.total}
-        onChange={({ page }) => setCurrentPage(page)}
-        page={currentPage}
+        onChange={({ page }) => setPageIndex(page)}
+        page={pageIndex}
         step={facts.per_page}
       />
     </>
