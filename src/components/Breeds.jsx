@@ -14,8 +14,8 @@ function Breeds() {
           <TableHeader>
             <TableRow>
               {
-              breeds?.data ? (
-                Object.keys(breeds?.data[0]).map((key) => (
+              breeds.data ? (
+                Object.keys(breeds.data[0]).map((key) => (
                   <TableCell scope="col" border="bottom" key={key}>
                     {key.charAt(0)
                       .toUpperCase() + key.slice(1)}
@@ -27,7 +27,7 @@ function Breeds() {
           </TableHeader>
           <TableBody>
             {
-            breeds?.data.map(({
+            breeds.data.map(({
               breed, country, origin, coat, pattern,
             }) => (
               <TableRow key={breed}>
