@@ -1,28 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
-  Pagination, Table, TableBody, TableCell, TableHeader, TableRow,
+  Table, TableBody, TableCell, TableHeader, TableRow,
 } from 'grommet';
-import useSWR from 'swr';
-import Loading from './Loading';
-import fetcher from '../utils/fetcher';
+import PageWrapper from './PageWrapper';
 
 const url = 'https://catfact.ninja/breeds';
 
 function Breeds() {
-  const [pageIndex, setPageIndex] = useState(1);
-
-  const { data: breeds } = useSWR(`${url}?page=${pageIndex}`, fetcher);
-
-  if (!breeds?.data) {
-    return <Loading />;
-  }
-
   return (
-    <>
-      <Table>
-        <TableHeader>
-          <TableRow>
-            {
+    <PageWrapper url={url}>
+      {({ data: breeds }) => (
+        <Table>
+          <TableHeader>
+            <TableRow>
+              {
               breeds?.data ? (
                 Object.keys(breeds?.data[0]).map((key) => (
                   <TableCell scope="col" border="bottom" key={key}>
@@ -32,10 +23,10 @@ function Breeds() {
                 ))
               ) : null
             }
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {
             breeds?.data.map(({
               breed, country, origin, coat, pattern,
             }) => (
@@ -48,17 +39,10 @@ function Breeds() {
               </TableRow>
             ))
           }
-        </TableBody>
-      </Table>
-      <Pagination
-        alignSelf="end"
-        margin="medium"
-        numberItems={breeds.total}
-        onChange={({ page }) => setPageIndex(page)}
-        page={pageIndex}
-        step={breeds.per_page}
-      />
-    </>
+          </TableBody>
+        </Table>
+      )}
+    </PageWrapper>
   );
 }
 

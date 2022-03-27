@@ -1,6 +1,11 @@
 import { Box, Button, Layer } from 'grommet';
 import { FormClose } from 'grommet-icons';
 import React from 'react';
+import PropTypes from 'prop-types';
+
+const propTypes = {
+  setShowSidebar: PropTypes.func.isRequired,
+};
 
 function SideBar({ setShowSidebar }) {
   return (
@@ -28,5 +33,7 @@ function SideBar({ setShowSidebar }) {
     </Layer>
   );
 }
+
+SideBar.propTypes = propTypes;
 
 export default SideBar;
