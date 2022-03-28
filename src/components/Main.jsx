@@ -5,7 +5,7 @@ import Breeds from './Breeds';
 
 function Main() {
   return (
-    <Box flex align="center" justify="center">
+    <Box flex margin={{ top: 'large', bottom: 'large' }}>
       <Tabs
         height="medium"
       >
