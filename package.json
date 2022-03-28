@@ -14,9 +14,8 @@
     "prop-types": "^15.8.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "styled-components": "^5.3.5",
-    "swr": "^1.2.2",
-    "zustand": "^3.7.1"
+    "react-fetch-hook": "^1.8.5",
+    "styled-components": "^5.3.5"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^1.2.0",

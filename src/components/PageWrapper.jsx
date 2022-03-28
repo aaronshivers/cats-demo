@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Pagination } from 'grommet';
-import useSWR from 'swr';
 import PropTypes from 'prop-types';
+import useFetch from 'react-fetch-hook';
 import Loading from './Loading';
 
 const propTypes = {
@@ -9,12 +9,10 @@ const propTypes = {
   children: PropTypes.func.isRequired,
 };
 
-const fetcher = (url) => fetch(url).then((res) => res.json());
-
 function PageWrapper({ children, url }) {
   const [pageIndex, setPageIndex] = useState(1);
 
-  const { data } = useSWR(`${url}?page=${pageIndex}`, fetcher);
+  const { data } = useFetch(`${url}?page=${pageIndex}`);
 
   if (!data) {
     return <Loading />;
