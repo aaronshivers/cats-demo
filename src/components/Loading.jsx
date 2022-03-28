@@ -5,6 +5,7 @@ import { Box, Spinner } from 'grommet';
 const Loading = () => (
   <Box
     align="center"
+    justify="center"
     direction="row"
     gap="small"
     pad="small"

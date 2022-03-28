@@ -6,7 +6,7 @@ import Loading from './Loading';
 
 const propTypes = {
   url: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.func.isRequired,
 };
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
